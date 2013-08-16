@@ -4,11 +4,15 @@ var findNQueens = function(n) {
   var queenCount = 0;
 
   var traverse = function(placements) {
-    for(var col=0; col<n; col++) {
-      if(!hasAnyConflictsPeriod(placements, col)) {
-        traverse(placements.concat([col]));
-      } else {
-        queenCount++;
+
+    if(placements.length === n){
+      debugger;
+      queenCount++
+    } else {
+      for(var col=0; col<n; col++) {
+        if(!hasAnyConflictsPeriod(placements, col)) {
+          traverse(placements.concat([col]));
+        } 
       }
     }
   };
@@ -18,16 +22,20 @@ var findNQueens = function(n) {
   return queenCount;
 };
 var hasAnyConflictsPeriod = function(placements, col){
-  if(hasAnyColConflicts(placements, col) || hasAnyMajorDiagConflicts(placements, col) || hasAnyMinorDiagConflicts(placements,col)){
-    return true
-  } else {
-    return false
+  // debugger;
+  if(placements.length !== 0){
+    if(hasAnyColConflicts(placements, col) || hasAnyMajorDiagConflicts(placements, col) || hasAnyMinorDiagConflicts(placements,col)){
+      return true
+    } else {
+      return false
+    }
   }
+  return false
 }
 
 
 var hasAnyColConflicts = function(placements, col) {
-  for(var i=0; i<col; i++) {
+  for(var i=0; i<placements.length; i++) {
     if(placements[i] === col) {
       return true;
     }
@@ -35,8 +43,9 @@ var hasAnyColConflicts = function(placements, col) {
   return false;
 };
 
+
 var hasAnyMajorDiagConflicts = function(placements, col) {
-  for(var i=0; i<col; i++) {
+  for(var i=0; i<placements.length; i++) {
     if(placements.length - i + placements[i] === col) {
       return true;
     }
@@ -54,7 +63,7 @@ var hasAnyMinorDiagConflicts = function(placements, col) {
 };
 
 
-
+findNQueens(3)
 
 
 
